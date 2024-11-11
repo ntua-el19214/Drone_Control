@@ -83,6 +83,7 @@ y = simOut.logsout.get('y').Values;
 z = simOut.logsout.get('z').Values;
 inputx = simOut.logsout.get('InputX').Values;
 inputy = simOut.logsout.get('InputY').Values;
+inputz = simOut.logsout.get('InputZ').Values;
 
 % Create a new figure for the plots
 figure;
@@ -116,10 +117,14 @@ hold off
 % Plot z (Altitude)
 subplot(3, 1, 3);  % Creates a subplot in the third row
 plot(z.Time, z.Data, 'LineWidth', 1.5);
+hold on
+plot(inputy.Time, inputz.Data, '--', 'LineWidth', 1.5, 'Color','#E25731');  % Dashed green line for InputY
 title('Altitude (z)');
 xlabel('Time (s)');
 ylabel('z (m)');
 ylim([0 2.5])
+legend('Actual', 'Target')
+hold off
 grid on;
 
 

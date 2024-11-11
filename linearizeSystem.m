@@ -81,8 +81,31 @@ tfpsi = poly2sym(sym(systf.Numerator{5,4}), s) / poly2sym(sym(systf.Denominator{
 
 % Now write in matrix form and insert in latex : )
 %% Design LQR controller 
+% 
+% qDiagElements = [3 0.01 3 0.01 3 0.1 1 0.2 1 0.2 15 1];
+% r = [1 0.1 0.1 0.1];
+% 
+% Q = diag(qDiagElements);
+% R = diag(r);
+% 
+% [~, K, ~] = icare(A_eq1, B_eq1, Q, R);
+% K(abs(K)<0.01) = 0;
 
-qDiagElements = [3 0.01 3 0.01 3 0.1 1 0.2 1 0.2 15 1];
+q_phi   = 3;
+q_th    = 3;
+q_psi   = 3;
+q_x = 1;
+q_y = 1;
+q_z = 15;
+
+q_phi_dot   = 0.01;
+q_th_dot    = 0.01;
+q_psi_dot   = 0.1;
+q_x_dot = 0.2;
+q_y_dot = 0.2;
+q_z_dot = 1;
+
+qDiagElements = [q_phi q_phi_dot q_th q_th_dot q_psi q_psi_dot q_x q_x_dot q_y q_y_dot q_z q_z_dot];
 r = [1 0.1 0.1 0.1];
 
 Q = diag(qDiagElements);
@@ -90,27 +113,3 @@ R = diag(r);
 
 [~, K, ~] = icare(A_eq1, B_eq1, Q, R);
 K(abs(K)<0.01) = 0;
-
-
-% q_phi   = 2;
-% q_th    = 2;
-% q_psi   = 1;
-% q_x = 0.1;
-% q_y = 0.1;
-% q_z = 15;
-% 
-% q_phi_dot   = 0.1;
-% q_th_dot    = 0.1;
-% q_psi_dot   = 0.5;
-% q_x_dot = 0;
-% q_y_dot = 0;
-% q_z_dot = 1;
-% 
-% qDiagElements = [q_phi q_phi_dot q_th q_th_dot q_psi q_psi_dot q_x q_x_dot q_y q_y_dot q_z q_z_dot];
-% r = [0.1 0.1 0.1 0.1];
-% 
-% Q = diag(qDiagElements);
-% R = diag(r);
-% 
-% [~, K, ~] = icare(A_eq1, B_eq1, Q, R);
-% K(abs(K)<0.01) = 0;
