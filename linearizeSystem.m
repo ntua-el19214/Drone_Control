@@ -1,12 +1,13 @@
 % Define the parameters based on inertia values
+Parameters
+
+
 p1 = (Iyy - Izz) / Ixx;
 p2 = 1 / Ixx;
 p3 = (Ixx - Iyy) / Iyy;
 p4 = 1 / Iyy;
 p5 = (Ixx - Iyy) / Izz;
 p6 = 1 / Izz;
-
-
 
 % Define symbolic variables for states and inputs
 syms x1 x2 x3 x4 x5 x6 x7 x8 x9 x10 x11 x12 real % State variables
@@ -65,31 +66,15 @@ disp(B_eq);
 C = diag([0 0 0 0 1 0 1 0 1 0 1 0]);
 D = zeros([12, 4]);
 
-% [n1, d1] = ss2tf(A_eq1, B_eq1, C, D, 1);
-% [n2, d2] = ss2tf(A_eq1, B_eq1, C, D, 2);
-% [n3, d3] = ss2tf(A_eq1, B_eq1, C, D, 3);
-% [n4, d4] = ss2tf(A_eq1, B_eq1, C, D, 4);
-
-
 sys = ss(A_eq1, B_eq1, C, D);
 systf = tf(sys);
 syms s
-tfz = poly2sym(sym(systf.Numerator{11,1}), s) / poly2sym(sym(systf.Denominator{11,1}), s)
-tfy = poly2sym(sym(systf.Numerator{9,2}), s) / poly2sym(sym(systf.Denominator{9,2}), s)
-tfx = poly2sym(sym(systf.Numerator{7,3}), s) / poly2sym(sym(systf.Denominator{7,3}), s)
-tfpsi = poly2sym(sym(systf.Numerator{5,4}), s) / poly2sym(sym(systf.Denominator{5,4}), s)
+tfz = poly2sym(sym(systf.Numerator{11,1}), s) / poly2sym(sym(systf.Denominator{11,1}), s);
+tfy = poly2sym(sym(systf.Numerator{9,2}), s) / poly2sym(sym(systf.Denominator{9,2}), s);
+tfx = poly2sym(sym(systf.Numerator{7,3}), s) / poly2sym(sym(systf.Denominator{7,3}), s);
+tfpsi = poly2sym(sym(systf.Numerator{5,4}), s) / poly2sym(sym(systf.Denominator{5,4}), s);
 
-% Now write in matrix form and insert in latex : )
 %% Design LQR controller 
-% 
-% qDiagElements = [3 0.01 3 0.01 3 0.1 1 0.2 1 0.2 15 1];
-% r = [1 0.1 0.1 0.1];
-% 
-% Q = diag(qDiagElements);
-% R = diag(r);
-% 
-% [~, K, ~] = icare(A_eq1, B_eq1, Q, R);
-% K(abs(K)<0.01) = 0;
 
 q_phi   = 3;
 q_th    = 3;
