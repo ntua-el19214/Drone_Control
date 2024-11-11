@@ -109,6 +109,7 @@ title('Distance Y (m)');
 xlabel('Time (s)');
 ylabel('y (m)');
 ylim([-0.1 1.5])
+legend('Actual', 'Target')
 grid on;
 hold off
 
@@ -118,7 +119,7 @@ plot(z.Time, z.Data, 'LineWidth', 1.5);
 title('Altitude (z)');
 xlabel('Time (s)');
 ylabel('z (m)');
-ylim([0 1.5])
+ylim([0 2.5])
 grid on;
 
 
@@ -172,3 +173,41 @@ grid on;
 % Add a super title for the entire figure
 sgtitle('Blade Speeds (Angular Velocities)');
 
+%%
+% Extract the data from the simulation output
+x_data = x.Data;
+y_data = y.Data;
+z_data = z.Data;
+inputx_data = inputx.Data;
+inputy_data = inputy.Data;
+
+% Create a 3D plot for the trajectory
+figure;
+plot3(x_data, y_data, z_data, 'b', 'LineWidth', 2);
+hold on;
+xpoints = [0 1 1 0 0 1 1 0 0];
+ypoints = [0 0 0 0 1 1 1 1 0];
+zpoints = [1 1 2 2 2 2 1 1 1];
+% Plot arrows between consecutive points
+for i = 1:length(xpoints) - 1
+    % Calculate the direction vector from the current point to the next
+    dx = xpoints(i + 1) - xpoints(i);
+    dy = ypoints(i + 1) - ypoints(i);
+    dz = zpoints(i + 1) - zpoints(i);
+    
+    % Plot an arrow using quiver3
+    quiver3(xpoints(i), ypoints(i), zpoints(i), dx, dy, dz, ...
+        'k', 'LineWidth', 1, 'MaxHeadSize', 0.5, 'AutoScale', 'off');
+end
+
+
+% Enhance the plot with labels and a title
+grid on;
+xlabel('X (meters)');
+ylabel('Y (meters)');
+zlabel('Z (meters)');
+title('3D Trajectory of the Drone with Arrows Indicating Direction');
+legend('Drone Path', 'Input Points', 'Direction Arrows');
+
+% Adjust the view angle for better visualization
+view(3); % 3D view

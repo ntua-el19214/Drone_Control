@@ -181,31 +181,33 @@ z_data = z.Data;
 inputx_data = inputx.Data;
 inputy_data = inputy.Data;
 
-% Calculate the direction vectors for the arrows
-% For simplicity, we'll use a step size to only plot arrows at intervals
-step_size = 10; % Adjust this to control the density of arrows
-x_dir = diff(x_data);
-y_dir = diff(y_data);
-z_dir = diff(z_data);
-
-% Create a plot
+% Create a 3D plot for the trajectory
 figure;
 plot3(x_data, y_data, z_data, 'b', 'LineWidth', 2);
 hold on;
-
-% Plot arrows for heading direction at specified intervals
-for i = 1:step_size:length(x_dir)
-    quiver3(x_data(i), y_data(i), z_data(i), x_dir(i), y_dir(i), z_dir(i), ...
-        'k', 'LineWidth', 1, 'MaxHeadSize', 0.5);
+xpoints = [0 1 1 0 0 1 1 0 0];
+ypoints = [0 0 0 0 1 1 1 1 0];
+zpoints = [1 1 2 2 2 2 1 1 1];
+% Plot arrows between consecutive points
+for i = 1:length(xpoints) - 1
+    % Calculate the direction vector from the current point to the next
+    dx = xpoints(i + 1) - xpoints(i);
+    dy = ypoints(i + 1) - ypoints(i);
+    dz = zpoints(i + 1) - zpoints(i);
+    
+    % Plot an arrow using quiver3
+    quiver3(xpoints(i), ypoints(i), zpoints(i), dx, dy, dz, ...
+        'k', 'LineWidth', 1, 'MaxHeadSize', 0.5, 'AutoScale', 'off');
 end
 
-% Enhancing the plot
+
+% Enhance the plot with labels and a title
 grid on;
 xlabel('X (meters)');
 ylabel('Y (meters)');
 zlabel('Z (meters)');
-title('3D Trajectory of the Drone with Heading Arrows');
-legend('Drone Path', 'Input Points', 'Heading Arrows');
+title('3D Trajectory of the Drone with Arrows Indicating Direction');
+legend('Drone Path', 'Direction Arrows');
 
 % Adjust the view angle for better visualization
 view(3); % 3D view
