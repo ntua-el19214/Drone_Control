@@ -1,0 +1,7 @@
+# Ignore all .asv files
+*.asv
+
+# Add other patterns if needed
+*.log
+*.tmp
+.DS_Store
