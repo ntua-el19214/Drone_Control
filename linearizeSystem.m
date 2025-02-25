@@ -3,9 +3,9 @@ Parameters
 
 
 p1 = (Iyy - Izz) / Ixx;
-p2 = 1 / Ixx;
+p2 = 0.3 / Ixx;
 p3 = (Ixx - Iyy) / Iyy;
-p4 = 1 / Iyy;
+p4 = 0.3 / Iyy;
 p5 = (Ixx - Iyy) / Izz;
 p6 = 1 / Izz;
 
