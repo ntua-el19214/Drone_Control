@@ -1,7 +1,35 @@
-# Ignore all .asv files
+# MATLAB
 *.asv
+*.m~
+*.mex*
 
-# Add other patterns if needed
+# Simulink build / cache artifacts
+slprj/
+*.slxc
+*.autosave
+*.mdl.original
+*.mdl.bak
+*.mdl.r*
+*.slx.original
+*.slx.bak
+
+# LaTeX build artifacts
+*.aux
+*.out
+*.toc
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+*.bbl
+*.blg
+*.lof
+*.lot
+*.idx
+*.ilg
+*.ind
+
+# OS / editor
 *.log
 *.tmp
 .DS_Store
+Thumbs.db
